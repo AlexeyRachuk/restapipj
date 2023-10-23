@@ -5,6 +5,11 @@ from guitars.models.guitar import Guitar, GuitarPhoto
 from guitars.models.category import TypeGuitar, SubTypeGuitar, Brand, Strings, Material
 
 
+class GuitarPhotoAdmin(admin.StackedInline):
+    model = GuitarPhoto
+    extra = 1
+
+
 @admin.register(Guitar)
 class GuitarAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -27,7 +32,7 @@ class GuitarAdmin(admin.ModelAdmin):
     search_fields = ('guitar_name', 'guitar_article')
     list_editable = ('guitar_price', 'guitar_date', 'guitar_pub')
     prepopulated_fields = {'guitar_slug': ('guitar_name',)}
-    #inlines = [GuitarPhotoAdmin]
+    inlines = [GuitarPhotoAdmin]
 
 
 class SubTypeGuitarAdmin(admin.StackedInline):
@@ -43,4 +48,3 @@ class TypeGuitarAdmin(admin.ModelAdmin):
 admin.site.register(Brand)
 admin.site.register(Strings)
 admin.site.register(Material)
-admin.site.register(GuitarPhoto)
