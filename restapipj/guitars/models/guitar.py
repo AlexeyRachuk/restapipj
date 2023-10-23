@@ -53,29 +53,15 @@ class Guitar(AbstractMetaModel, models.Model):
         'Публикация',
         default=True
     )
-
-    def __str__(self):
-        return self.guitar_name
-
-    class Meta:
-        verbose_name = 'Гитара'
-        verbose_name_plural = 'Гитары'
-        ordering = ['-guitar_date']
-
-
-"""Категории"""
-
-
-class GuitarCategory(SingletonModel):
-    guitar_category_type = models.ForeignKey(
+    guitar_type = models.ForeignKey(
         TypeGuitar,
         verbose_name='Тип гитары',
         on_delete=models.SET_NULL,
         null=True
     )
-    guitar_category_sub_type = models.ForeignKey(
+    guitar_subtype = models.ForeignKey(
         SubTypeGuitar,
-        verbose_name='Вид',
+        verbose_name='Вид гитары',
         on_delete=models.SET_NULL,
         null=True
     )
@@ -91,29 +77,26 @@ class GuitarCategory(SingletonModel):
         on_delete=models.SET_NULL,
         null=True
     )
-    guitar_category_on_guitar = models.OneToOneField(
-        Guitar,
-        on_delete=models.SET_NULL,
-        null=True
-    )
     guitar_material = models.ForeignKey(
         Material,
+        verbose_name='Материал',
         on_delete=models.SET_NULL,
         null=True
     )
 
     def __str__(self):
-        return 'Категории'
+        return self.guitar_name
 
     class Meta:
-        verbose_name = 'Категории'
-        verbose_name_plural = 'Категории'
+        verbose_name = 'Гитара'
+        verbose_name_plural = 'Гитары'
+        ordering = ['-guitar_date']
 
 
 """Модель фото гитар"""
 
 
-class GuitarPhoto(SingletonModel, AbstractOrderPubModel):
+class GuitarPhoto(AbstractOrderPubModel, models.Model):
     guitar_photo = models.ImageField(
         'Фото',
         upload_to='media/'
@@ -121,7 +104,8 @@ class GuitarPhoto(SingletonModel, AbstractOrderPubModel):
     guitar_photo_on_guitar = models.ForeignKey(
         Guitar,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name="guitar_photo"
     )
 
     def __str__(self):

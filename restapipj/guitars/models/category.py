@@ -75,9 +75,6 @@ class Strings(AbstractOrderPubModel, models.Model):
         default=0
     )
 
-    def __str__(self):
-        return self.count_string
-
     class Meta:
         verbose_name = 'Струны'
         verbose_name_plural = 'Струны'
