@@ -4,9 +4,11 @@ from guitars.models.guitar import Guitar, GuitarPhoto
 
 
 class GuitarPhotoSerialize(serializers.ModelSerializer):
+    guitar_photo = serializers.ImageField(max_length=None, use_url=True)
+
     class Meta:
         model = GuitarPhoto
-        fields = ('guitar_photo', )
+        fields = ('guitar_photo',)
 
 
 class GuitarCatalogPageSerialize(serializers.ModelSerializer):

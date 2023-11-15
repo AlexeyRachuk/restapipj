@@ -7,7 +7,7 @@ app_name = "guitars"
 urlpatterns = [
     path(
         "api/catalog-page/",
-        CatalogPageView.as_view(),
+        CatalogPageView.as_view({'get': 'list'}),
         name="api_catalog_page",
     )
 ]

@@ -2,6 +2,7 @@ from datetime import date
 
 from django.db import models
 from solo.models import SingletonModel
+from imagekit.models import ImageSpecField
 from guitars.models.category import TypeGuitar, SubTypeGuitar, Brand, Strings, Material
 
 from guitars.abstract.abstract import AbstractMetaModel, AbstractOrderPubModel

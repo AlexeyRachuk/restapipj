@@ -3,18 +3,25 @@ from django.forms import models
 
 from guitars.models.guitar import Guitar, GuitarPhoto
 from guitars.models.category import TypeGuitar, SubTypeGuitar, Brand, Strings, Material
+from guitars.abstract.abstract import AbstractMetaModel
 
 
 class GuitarPhotoAdmin(admin.StackedInline):
     model = GuitarPhoto
-    extra = 1
+    extra = 0
 
 
 @admin.register(Guitar)
 class GuitarAdmin(admin.ModelAdmin):
     fieldsets = [
         (
-            None,
+            "SEO",
+            {
+                "fields": ["seo_title", "seo_description", "og_title", "og_description", "og_image", ]
+            },
+        ),
+        (
+            "Основное",
             {
                 "fields": ["guitar_name", "guitar_article", "guitar_slug", "guitar_price", "guitar_price_old",
                            "guitar_hit", "guitar_image", "guitar_description", "guitar_date", "guitar_pub", ]
